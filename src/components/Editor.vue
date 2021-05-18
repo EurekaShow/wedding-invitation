@@ -15,7 +15,8 @@
 import Prism from "prismjs";
 import { Howl } from "howler";
 import data from "../mock/data";
-import { drawBackground } from "../utils/drawBackground";
+import { drawBackground } from "../utils/background/drawBackground";
+import { excuteFireworks } from "../utils/firework/firework";
 import Executions from "./Executions";
 import { resize } from '../utils/createCanvas';
 let audioBuffer;
@@ -123,6 +124,7 @@ export default {
       false
     );
     drawBackground();
+    excuteFireworks();
     resize();
     this.progressivelyTyping();
   },

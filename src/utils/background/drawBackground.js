@@ -1,7 +1,8 @@
 import Moon from "./Moon";
 import Stars from "./Stars";
 import Meteor from "./Meteor";
-import { createCanvas } from "./createCanvas";
+import { createCanvas } from "../createCanvas";
+import { Time } from "../firework/Time";
 
 export function drawBackground() {
     const dom = document.body;
@@ -22,18 +23,18 @@ export function drawBackground() {
         stars.resize(width, height * 0.4);
     })
 
-    let start = (performance || Date).now();
-    let time = Math.random() * 10000;
+    let time = new Time();
+    let delta = Math.random() * 10;
 
     //流星生成函数
     const meteorGenerator = () => {
 
-        let end = (performance || Date).now();
+        time.update();
 
-        if ((end - start) < time) return;
+        if (time.elapsed < delta) return;
 
-        time = 3000 + Math.random() * 10000;
-        start = end;
+        delta = 3 + Math.random() * 10;
+        time.start = time.previous;
 
         //x位置偏移，以免经过月亮
         let x = Math.random() * width / 3 + 400
