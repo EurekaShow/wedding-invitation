@@ -41,9 +41,14 @@ export function excuteFireworks() {
         });
     };
 
-    const render = function () {
-        requestAnimationFrame(render);
+    window.addEventListener("resize", function () {
+        width = canvas.clientWidth;
+        height = canvas.clientHeight;
+        
+        draw();
+    })
 
+    const draw = ()=> {
         context.clearRect(0, 0, width, height);
         
         time.update();
@@ -53,7 +58,12 @@ export function excuteFireworks() {
             rocket.update(time);
             rocket.render(canvas, context);
         });
+    }
 
+    const render = function () {
+        requestAnimationFrame(render);
+
+        draw();
     };
 
     render();

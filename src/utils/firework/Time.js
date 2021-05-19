@@ -1,6 +1,9 @@
+
+const DATE = (performance || Date);
+
 export class Time {
     constructor() {
-        const now = (performance || Date).now();
+        const now = Time.now();
 
         this.delta = 0;
         this.elapsed = 0;
@@ -17,6 +20,6 @@ export class Time {
     }
 
     static now() {
-        return (performance || Date).now() / 1000;
+        return DATE.now() / 1000;
     }
 }
