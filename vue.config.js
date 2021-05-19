@@ -12,8 +12,7 @@ let cdn = {
         'https://s1.pstatp.com/cdn/expire-1-M/vue/2.6.10/vue.min.js',
         'https://s1.pstatp.com/cdn/expire-1-M/prism/9000.0.1/prism.min.js',
         'https://s1.pstatp.com/cdn/expire-1-M/howler/2.1.2/howler.min.js',
-        "https://res.wx.qq.com/open/js/jweixin-1.2.0.js",
-        'https://s1.pstatp.com/cdn/expire-1-M/lottie-web/5.7.6/lottie.min.js',
+        "https://res.wx.qq.com/open/js/jweixin-1.2.0.js"
     ]
 }
 
