@@ -1,27 +1,19 @@
 # wedding-invitation
 
-## Project setup
+## 安装
 ```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
+//安装依赖
+yarn
+//development
+yarn run serve
+--------------------
+//production
+yarn run build
+------------------
+//Lints
+yarn run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
 
-## Reference
+## 参考
 - [wedding-invitation-for-programmers](https://github.com/leadream/wedding-invitation-for-programmers)

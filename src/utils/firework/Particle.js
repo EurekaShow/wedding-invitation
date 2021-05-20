@@ -1,4 +1,4 @@
-import {Time} from "./Time"
+import {Time} from "../Time"
 import {Vector2} from "./Vector2";
 
 export class Particle {
@@ -23,7 +23,7 @@ export class Particle {
         this.position.add(this.velocity.clone().multiplyScalar(time.delta));
     }
 
-    render(canvas, context) {
+    render(context) {
         const remainingLifetime = this.getRemainingLifetime();
 
         if (!remainingLifetime) return;

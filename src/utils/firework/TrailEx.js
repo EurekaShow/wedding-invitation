@@ -10,8 +10,8 @@ export class TrailEx extends Trail {
         this.size = 60 + Math.random() * 60;
     }
 
-    render(canvas, context) {
-        super.render(canvas, context);
+    render(context) {
+        super.render(context);
 
         this.size /= 1.01;
         let size = this.size;

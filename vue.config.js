@@ -1,16 +1,17 @@
-const CopyWebpackPlugin = require("copy-webpack-plugin")
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+
 //需要以cdn方式在打包的时候引入的地址
 let cdn = {
     font: [],
     css: [
-        'https://s1.pstatp.com/cdn/expire-1-M/prism/9000.0.1/themes/prism-okaidia.css'
+        'https://s1.pstatp.com/cdn/expire-1-M/prism/1.23.0/themes/prism-okaidia.css'
     ],
     js: [
     ],
     //不用preload的js
     externaljs: [
         'https://s1.pstatp.com/cdn/expire-1-M/vue/2.6.10/vue.min.js',
-        'https://s1.pstatp.com/cdn/expire-1-M/prism/9000.0.1/prism.min.js',
+        'https://s1.pstatp.com/cdn/expire-1-M/prism/1.23.0/prism.min.js',
         'https://s1.pstatp.com/cdn/expire-1-M/howler/2.1.2/howler.min.js',
         "https://res.wx.qq.com/open/js/jweixin-1.2.0.js"
     ]
@@ -54,6 +55,7 @@ module.exports = {
             //     chunks: 'all'
             // })
         }
+
         config.plugin('html').tap(args => {
             args[0].cdn = cdn
             return args

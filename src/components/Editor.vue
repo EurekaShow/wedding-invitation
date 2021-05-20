@@ -2,28 +2,35 @@
   <div class="wedding-editor" ref="editor">
     <!--代码编辑区-->
     <pre><code v-html="highlightedCode"></code> </pre>
-
-    <Executions
+    <!--模拟编译-->
+    <executions
       :canExecute="canExecute"
       @onUpdating="scrollToBottom"
       @onFinish="canOpen = true"
     />
+    <!--展示邀请函-->
+    <invitation :canOpen="canOpen" />
   </div>
 </template>
 
 <script>
 import Prism from "prismjs";
 import { Howl } from "howler";
-import data from "../mock/data";
-import { drawBackground } from "../utils/background/drawBackground";
-import { excuteFireworks } from "../utils/firework/firework";
+
+import { drawBackground } from "@/utils/background/drawBackground";
+import { excuteFireworks } from "@/utils/firework/firework";
+import { resize } from "@/utils/createCanvas";
+
 import Executions from "./Executions";
-import { resize } from '../utils/createCanvas';
+import Invitation from "./Invitation";
+
+import data from "@/mock/data";
+
 let audioBuffer;
 
 export default {
   name: "Editor",
-  components: { Executions },
+  components: { Executions, Invitation },
   data() {
     return {
       code: data.code,

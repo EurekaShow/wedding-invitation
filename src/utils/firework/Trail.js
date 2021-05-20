@@ -42,10 +42,10 @@ export class Trail extends Particle {
         });
     }
 
-    render(canvas, context) {
+    render(context) {
         // Render all children
         this.children.forEach(function (child) {
-            child.render(canvas, context);
+            child.render(context);
         });
     }
 }

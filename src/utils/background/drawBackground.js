@@ -2,7 +2,7 @@ import Moon from "./Moon";
 import Stars from "./Stars";
 import Meteor from "./Meteor";
 import { createCanvas } from "../createCanvas";
-import { Time } from "../firework/Time";
+import { Time } from "../Time";
 
 export function drawBackground() {
     const dom = document.body;
@@ -16,14 +16,14 @@ export function drawBackground() {
         meteors = [],
         count = 0;
 
-    window.addEventListener("resize", function () {
+    window.addEventListener("resize", function () {       
         width = canvas.clientWidth;
         height = canvas.clientHeight;
         moon.resize(width, height);
         stars.resize(width, height * 0.4);
     })
 
-    let time = new Time();
+    const time = new Time();
     let delta = Math.random() * 10;
 
     //流星生成函数
@@ -44,7 +44,7 @@ export function drawBackground() {
     const render = function () {
         requestAnimationFrame(render);
 
-        context.clearRect(0, 0, width, height);
+        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
         count++;
         count % 10 == 0 && stars.blink();
         moon.draw();
@@ -60,5 +60,5 @@ export function drawBackground() {
         })
     };
 
-    render();
+    requestAnimationFrame(render);
 }

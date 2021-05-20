@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import data from "../mock/data";
+import data from "@/mock/data";
 
 export default {
   name: "Executions",
