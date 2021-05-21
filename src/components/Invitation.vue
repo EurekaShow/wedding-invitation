@@ -37,6 +37,7 @@
 import data from "@/mock/data";
 import QingJian from "./QingJian.vue";
 import { playExplosion } from "@/utils/playlottie";
+import eventBus from "@/eventBus";
 
 export default {
   components: { QingJian },
@@ -45,13 +46,14 @@ export default {
     return {
       data: data,
       isOpening: false,
+      animationData: null,
     };
   },
   watch: {
     canOpen(val) {
       if (val) {
         setTimeout(() => {
-          playExplosion(this.$refs.wedding, (evt) => {
+          playExplosion(this.$refs.wedding, this.animationData, (evt) => {
             //检测是否点击到seal
             let { x, y } = evt;
             let {
@@ -67,11 +69,19 @@ export default {
         }, 600);
       }
     },
+    isOpening(val) {
+      eventBus.$emit("music_status",!val); //播放背景音乐,开启时播放，关闭时停止
+    },
   },
   methods: {
     openInvitation() {
       this.isOpening = true;
     },
+  },
+  mounted() {
+    eventBus.$on("lottie_ready", (json) => {
+      this.animationData = json;
+    });
   },
 };
 </script>

@@ -25,8 +25,19 @@ import Executions from "./Executions";
 import Invitation from "./Invitation";
 
 import data from "@/mock/data";
+import eventBus from "@/eventBus";
 
-let audioBuffer;
+let audioBuffer_k;
+let audioBuffer_bgm;
+
+function playAudio(audioBuffer, pause) {
+  if (!audioBuffer) return;
+  if (pause) {
+    audioBuffer.pause();
+    return;
+  }
+  audioBuffer.play();
+}
 
 export default {
   name: "Editor",
@@ -54,14 +65,10 @@ export default {
       return codeWithCursor;
     },
   },
+  watch:{
+
+  },
   methods: {
-    play(enter) {
-      if (!enter) {
-        if (audioBuffer) {
-          audioBuffer.play();
-        }
-      }
-    },
     scrollToBottom() {
       // 保持页面一直滚到最下面
       this.$refs.editor.scrollTop = 100000;
@@ -103,7 +110,7 @@ export default {
               this.preCode + this.code.substring(0, typingCount);
 
             typingCount++;
-            this.play();
+            playAudio(audioBuffer_k);
           }
 
           if (typingCount <= this.code.length) {
@@ -119,20 +126,36 @@ export default {
       });
     },
   },
-  async mounted() {
-    audioBuffer = new Howl({
-      src: [require("/static/media/k.mp3")],
+  mounted() {
+    audioBuffer_k = new Howl({
+      src: [require("/static/media/k.mp3")], //打包时资源会嵌入到js中
+      loop: false,
     });
     document.addEventListener(
       "WeixinJSBridgeReady",
       function () {
-        audioBuffer.play();
+        playAudio(audioBuffer_k);
       },
       false
     );
+    //背景音乐地址获取成功
+    eventBus.$on("music_ready", (src) => {
+      audioBuffer_bgm = new Howl({
+        src,
+        loop: true,
+      });
+      playAudio(audioBuffer_bgm, true);
+    });
+   eventBus.$on("music_status", (status) => {
+     playAudio(audioBuffer_bgm, status);      
+    });
+    //绘制背景
     drawBackground();
+    //放烟花
     excuteFireworks();
+
     resize();
+    //开始打字
     this.progressivelyTyping();
   },
 };

@@ -33,7 +33,29 @@
 
 <script>
 import data from "@/mock/data";
-import { loadAnimationData } from "@/utils/playlottie";
+import { get } from "@/utils/http";
+import eventBus from "@/eventBus";
+
+//请求lottie动画资源
+export function loadAnimationData(callback) {
+  return get(`./static/lottie/${data.lottie_name}.json`, (json) => {
+    if (callback) {
+      callback(json);
+    }
+  });
+}
+
+//请求music163音乐地址
+function loadBGM(callback) {
+  return get(
+    `https://autumnfish.cn/song/url?id=${data.music163_id}`,
+    (json) => {
+      if (json.code == 200 && callback) {
+        callback(json.data[0].url);
+      }
+    }
+  );
+}
 
 export default {
   name: "Executions",
@@ -77,15 +99,23 @@ export default {
       // 执行完命令，开始显示进度条
       await this.successProcessing(Math.floor(Math.random() * 50 + 20));
       //加载lottie动画
-      await loadAnimationData();
+      await loadAnimationData((json) => {
+        eventBus.$emit("lottie_ready", json);
+      });
       //动画资源加载完成
-      await this.successProcessing(100,2);
+      await this.successProcessing(Math.random() * 20 + 75, 2);
+      //加载背景音乐
+      await loadBGM((src) => {
+        eventBus.$emit("music_ready", src);
+      });
+      //BGM资源加载完成
+      await this.successProcessing(100, 2);
       // 执行最后一条命令
       await this.progressivelyRun(this.endExecution);
 
-      setTimeout(()=>{
+      setTimeout(() => {
         this.$emit("onFinish");
-      },500)
+      }, 500);
     },
     // 执行一条命令
     progressivelyRun(execution, customDuration) {

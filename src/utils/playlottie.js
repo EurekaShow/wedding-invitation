@@ -1,32 +1,16 @@
 import lottie from 'lottie-web';
 
-let animationData;
-
-const lottie_name = "partyyy";
-
-export function loadAnimationData() {
-
-  return new Promise((resolve, reject) => {
-    fetch(`./static/lottie/${lottie_name}.json`).then((res) => res.json()).then((json) => {
-      resolve();
-      animationData = json;
-    }).catch(() => {
-      reject()
-    })
-  })
-}
-
-export function playExplosion(anchor,callback) {
+export function playExplosion(anchor,animationData, callback) {
   if (!lottie || !animationData) return;
 
   const explosionAnimeEle = anchor.appendChild(document.createElement("div"));
   let width = anchor.scrollWidth;
   let height = anchor.scrollHeight;
 
-  explosionAnimeEle.setAttribute("style",`position:absolute;top:0;left:0;z-index:1000;width:${width}px;height:${height}px`)
+  explosionAnimeEle.setAttribute("style", `position:absolute;top:0;left:0;z-index:1000;width:${width}px;height:${height}px`)
 
-  explosionAnimeEle.addEventListener("click",(evt)=>{
-    if(callback){
+  explosionAnimeEle.addEventListener("click", (evt) => {
+    if (callback) {
       //传回点击事件
       callback(evt)
     }
