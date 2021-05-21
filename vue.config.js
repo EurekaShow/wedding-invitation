@@ -13,7 +13,8 @@ let cdn = {
         'https://s1.pstatp.com/cdn/expire-1-M/vue/2.6.10/vue.min.js',
         'https://s1.pstatp.com/cdn/expire-1-M/prism/1.23.0/prism.min.js',
         'https://s1.pstatp.com/cdn/expire-1-M/howler/2.1.2/howler.min.js',
-        "https://res.wx.qq.com/open/js/jweixin-1.2.0.js"
+        "https://res.wx.qq.com/open/js/jweixin-1.2.0.js",
+        'https://s1.pstatp.com/cdn/expire-1-M/lottie-web/5.7.6/lottie.min.js',
     ]
 }
 
@@ -22,10 +23,14 @@ cdn = isProd ? cdn : { css: ["./static/css/prism-okaidia.css"], js: [] }
 let externals = {
     'vue': 'Vue',
     'prismjs': 'Prism',
-    "howler": "window"
+    "howler": "window",
+    "lottie-web":"lottie"
 }
 externals = isProd ? externals : {}
-let plugins = isProd ? [] : [new CopyWebpackPlugin([{
+let plugins = isProd ? [new CopyWebpackPlugin([{
+    from: "./static/lottie",
+    to: 'static/lottie'
+}])] : [new CopyWebpackPlugin([{
     from: "./static",
     to: 'static'
 }])]

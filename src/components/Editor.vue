@@ -121,7 +121,7 @@ export default {
   },
   async mounted() {
     audioBuffer = new Howl({
-      src: [require("../../static/media/k.mp3")],
+      src: [require("/static/media/k.mp3")],
     });
     document.addEventListener(
       "WeixinJSBridgeReady",
@@ -144,7 +144,8 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
+  min-height: 100vh;
   padding: 1rem;
   padding-top: 1.5rem;
   pre {

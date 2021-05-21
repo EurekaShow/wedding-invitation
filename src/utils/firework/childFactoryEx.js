@@ -8,7 +8,7 @@ function addImage(idx) {
 
     if (imgCache[idx]) return imgCache[idx];
     const img = new Image();
-    img.src = require("../../../static/spark/" + idx + ".png");
+    img.src = require("/static/spark/" + idx + ".png");
     imgCache[idx] = img;
     return img;
 }

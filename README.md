@@ -4,12 +4,13 @@
 ```
 //安装依赖
 yarn
+-------------------
 //development
 yarn run serve
---------------------
+-------------------
 //production
 yarn run build
-------------------
+-------------------
 //Lints
 yarn run lint
 ```

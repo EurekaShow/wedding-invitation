@@ -33,6 +33,7 @@
 
 <script>
 import data from "@/mock/data";
+import { loadAnimationData } from "@/utils/playlottie";
 
 export default {
   name: "Executions",
@@ -41,7 +42,6 @@ export default {
     return {
       executions: data.executions,
       isProcessed: false,
-      isFinished: false,
       progressBarText: "--------------------------",
       endExecution: {
         name: "制作完成",
@@ -76,13 +76,16 @@ export default {
       }
       // 执行完命令，开始显示进度条
       await this.successProcessing(Math.floor(Math.random() * 50 + 20));
+      //加载lottie动画
+      await loadAnimationData();
+      //动画资源加载完成
+      await this.successProcessing(100,2);
       // 执行最后一条命令
-      await this.progressivelyRun(this.endExecution).then(() => {
-        setTimeout(() => {
-          this.isFinished = true;
-          this.$emit("onFinish");
-        }, 500);
-      });
+      await this.progressivelyRun(this.endExecution);
+
+      setTimeout(()=>{
+        this.$emit("onFinish");
+      },500)
     },
     // 执行一条命令
     progressivelyRun(execution, customDuration) {
@@ -102,10 +105,9 @@ export default {
       });
     },
     // 显示进度条
-    successProcessing(random) {
+    successProcessing(random, mode = 3) {
       return new Promise((resolve) => {
         let progressing,
-          mode = 3,
           progressingCount = 0;
         this.isProcessed = true;
         let step = () => {
@@ -116,12 +118,12 @@ export default {
           progressingCount++;
           if (percent < random) {
             progressing = requestAnimationFrame(step);
-          } else if (percent < 100) {
-            progressing = requestAnimationFrame(step);
           } else {
             resolve();
-            this.progressBarText = this.progressBarText.replace(/-/g, "#");
             cancelAnimationFrame(progressing);
+            if (random == 100) {
+              this.progressBarText = this.progressBarText.replace(/-/g, "#");
+            }
           }
         };
         progressing = requestAnimationFrame(step);

@@ -1,13 +1,14 @@
 <template>
-  <div class="wedding-invitation" :class="{ 'invitation-bounce': canOpen }">
+  <div
+    class="wedding-invitation"
+    :class="{ 'invitation-bounce': canOpen }"
+    ref="wedding"
+  >
     <div class="invitation-container" :class="{ 'invitation-down': isOpening }">
       <div class="invitation-cover">
         <div class="cover-content">
           <div class="content-inside">
-            <img
-              class="photo"
-              :src="require('../../static/images/photo.jpeg')"
-            />
+            <img class="photo" :src="require('/static/images/photo.jpeg')" />
             <p>{{ data.groom }} & {{ data.bride }}</p>
             <p>地点：{{ data.address }}</p>
             <p>时间：{{ data.date }}{{ data.dateEx }}</p>
@@ -18,8 +19,9 @@
             <qing-jian class="title" />
             <img
               class="seal"
-              :src="require('../../static/images/seal.png')"
+              :src="require('/static/images/seal.png')"
               @click="openInvitation"
+              ref="seal"
             />
           </div>
         </div>
@@ -34,6 +36,7 @@
 <script>
 import data from "@/mock/data";
 import QingJian from "./QingJian.vue";
+import { playExplosion } from "@/utils/playlottie";
 
 export default {
   components: { QingJian },
@@ -43,6 +46,19 @@ export default {
       data: data,
       isOpening: false,
     };
+  },
+  watch: {
+    canOpen(val) {
+      if (val) {
+        setTimeout(() => {
+          playExplosion(this.$refs.wedding, (evt) => {
+            console.log(evt);
+            console.log(this.$refs.seal.getBoundingClientRect());
+            this.openInvitation();
+          });
+        }, 600);
+      }
+    },
   },
   methods: {
     openInvitation() {
@@ -70,10 +86,8 @@ export default {
   }
 
   .invitation-container {
-    position: relative;
     width: 100%;
     height: 100%;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -81,9 +95,9 @@ export default {
 
     .invitation-cover {
       position: absolute;
-      width: 22rem;
-      height: 32rem;
-      background: url("../../static/images/lyonnette.png");
+      width: 23rem;
+      height: 36rem;
+      background: url("/static/images/lyonnette.png");
       background-color: #d65047;
       border-radius: 10px;
       box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.15);
@@ -99,7 +113,7 @@ export default {
           height: 100%;
           padding: 1.2rem;
           color: #a9895d;
-          background: url("../../static/images/handmade-paper.png");
+          background: url("/static/images/handmade-paper.png");
           background-color: #fff1de;
           text-align: center;
           overflow: auto;
@@ -110,7 +124,7 @@ export default {
         height: 100%;
         border-radius: 10px;
         top: 0;
-        background: url("../../static/images/simple-dashed.png");
+        background: url("/static/images/simple-dashed.png");
         background-color: #730000;
 
         transition: transform 0.5s;
@@ -119,7 +133,7 @@ export default {
           width: 100%;
           height: 100%;
 
-          background: url("../../static/images/border.png");
+          background: url("/static/images/border.png");
           background-repeat: no-repeat;
           background-size: cover;
         }
@@ -177,13 +191,13 @@ export default {
             min-height: 100%;
             height: auto;
             overflow: unset;
-            .photo{
+            .photo {
               width: 100%;
             }
           }
         }
         .cover {
-          background: url("../../static/images/lyonnette.png");
+          background: url("/static/images/lyonnette.png");
           background-color: #d65047;
           transition: transform 0.5s;
           .border {

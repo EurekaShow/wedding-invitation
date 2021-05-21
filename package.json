@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "howler": "^2.2.1",
+    "lottie-web": "^5.7.8",
     "prismjs": "^1.23.0",
     "vue": "^2.6.11"
   },

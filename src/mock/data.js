@@ -15,7 +15,7 @@ wedding.setDate("${date}");
 wedding.setLocation("${address}");
 wedding.generateInvitation();
 `
-
+code = "";
 export default {
   groom,
   bride,
