@@ -39,7 +39,7 @@ export function playExplosion(anchor,callback) {
   const explosionPlayer = lottie.loadAnimation({
     container: explosionAnimeEle,
     renderer: "svg",
-    loop: true,
+    loop: false,
     autoplay: true,
     animationData
   });

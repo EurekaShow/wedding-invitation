@@ -97,7 +97,7 @@ export default {
       position: absolute;
       width: 23rem;
       height: 36rem;
-      background: url("/static/images/lyonnette.png");
+      background: url("../../static/images/lyonnette.png");
       background-color: #d65047;
       border-radius: 10px;
       box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.15);
@@ -113,7 +113,7 @@ export default {
           height: 100%;
           padding: 1.2rem;
           color: #a9895d;
-          background: url("/static/images/handmade-paper.png");
+          background: url("../../static/images/handmade-paper.png");
           background-color: #fff1de;
           text-align: center;
           overflow: auto;
@@ -124,7 +124,7 @@ export default {
         height: 100%;
         border-radius: 10px;
         top: 0;
-        background: url("/static/images/simple-dashed.png");
+        background: url("../../static/images/simple-dashed.png");
         background-color: #730000;
 
         transition: transform 0.5s;
@@ -133,7 +133,7 @@ export default {
           width: 100%;
           height: 100%;
 
-          background: url("/static/images/border.png");
+          background: url("../../static/images/border.png");
           background-repeat: no-repeat;
           background-size: cover;
         }
@@ -197,7 +197,7 @@ export default {
           }
         }
         .cover {
-          background: url("/static/images/lyonnette.png");
+          background: url("../../static/images/lyonnette.png");
           background-color: #d65047;
           transition: transform 0.5s;
           .border {
