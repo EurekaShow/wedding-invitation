@@ -22,12 +22,8 @@ export function playExplosion(anchor,callback) {
   const explosionAnimeEle = anchor.appendChild(document.createElement("div"));
   let width = anchor.scrollWidth;
   let height = anchor.scrollHeight;
-  explosionAnimeEle.style.position = "absolute";
-  explosionAnimeEle.style.width = width + "px";
-  explosionAnimeEle.style.height = height + "px";
-  explosionAnimeEle.style.zIndex = 1000;
-  explosionAnimeEle.style.top = 0;
-  explosionAnimeEle.style.left = 0;
+
+  explosionAnimeEle.setAttribute("style",`position:absolute;top:0;left:0;z-index:1000;width:${width}px;height:${height}px`)
 
   explosionAnimeEle.addEventListener("click",(evt)=>{
     if(callback){
@@ -47,6 +43,6 @@ export function playExplosion(anchor,callback) {
   // 播放完成后，销毁爆炸相关的动画和元素
   explosionPlayer.addEventListener("complete", () => {
     explosionPlayer.destroy();
-    explosionAnimeEle.parentNode.remove(explosionAnimeEle);
+    explosionAnimeEle.parentNode.removeChild(explosionAnimeEle);
   });
 }

@@ -52,9 +52,17 @@ export default {
       if (val) {
         setTimeout(() => {
           playExplosion(this.$refs.wedding, (evt) => {
-            console.log(evt);
-            console.log(this.$refs.seal.getBoundingClientRect());
-            this.openInvitation();
+            //检测是否点击到seal
+            let { x, y } = evt;
+            let {
+              left,
+              right,
+              top,
+              bottom,
+            } = this.$refs.seal.getBoundingClientRect();
+            if (x > left && x < right && y > top && y < bottom) {
+              this.openInvitation();
+            }
           });
         }, 600);
       }
