@@ -70,7 +70,7 @@ export default {
       }
     },
     isOpening(val) {
-      eventBus.$emit("music_status",!val); //播放背景音乐,开启时播放，关闭时停止
+      eventBus.$emit("music_status", !val); //播放背景音乐,开启时播放，关闭时停止
     },
   },
   methods: {
@@ -110,7 +110,7 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
+    position: absolute;
     .invitation-cover {
       position: absolute;
       width: 23rem;

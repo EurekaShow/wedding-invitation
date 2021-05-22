@@ -27,6 +27,7 @@
       [<span class="time">{{ endExecution.time }}</span
       >]
       <span class="task">{{ endExecution.name }}</span>
+      <a href="#" @click="showInvitation">查看</a>
     </p>
   </div>
 </template>
@@ -91,6 +92,9 @@ export default {
     this.$emit("onUpdating");
   },
   methods: {
+    showInvitation() {
+      this.$emit("onFinish");
+    },
     // 逐条执行命令
     runExecutions: async function () {
       for (const execution of this.executions) {
@@ -98,16 +102,21 @@ export default {
       }
       // 执行完命令，开始显示进度条
       await this.successProcessing(Math.floor(Math.random() * 50 + 20));
-      //加载lottie动画
-      await loadAnimationData((json) => {
-        eventBus.$emit("lottie_ready", json);
-      });
-      //动画资源加载完成
-      await this.successProcessing(Math.random() * 20 + 75, 2);
-      //加载背景音乐
-      await loadBGM((src) => {
-        eventBus.$emit("music_ready", src);
-      });
+      try {
+        //加载lottie动画
+        await loadAnimationData((json) => {
+          eventBus.$emit("lottie_ready", json);
+        });
+        //动画资源加载完成
+        await this.successProcessing(Math.random() * 20 + 75, 2);
+        //加载背景音乐
+        await loadBGM((src) => {
+          eventBus.$emit("music_ready", src);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+
       //BGM资源加载完成
       await this.successProcessing(100, 2);
       // 执行最后一条命令
@@ -115,7 +124,7 @@ export default {
 
       setTimeout(() => {
         this.$emit("onFinish");
-      }, 500);
+      }, 800);
     },
     // 执行一条命令
     progressivelyRun(execution, customDuration) {

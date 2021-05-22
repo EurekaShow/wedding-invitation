@@ -3,8 +3,8 @@ export function get(url, callback) {
         fetch(url).then((res) => res.json()).then((json) => {
             resolve();
             callback && callback(json);
-        }).catch(() => {
-            reject();
+        }).catch((err) => {
+            reject(err);
         })
     }
     )
