@@ -2,7 +2,7 @@ import Moon from "./Moon";
 import Stars from "./Stars";
 import Meteor from "./Meteor";
 import Mountain from "./Mountain";
-import { createCanvas } from "../createCanvas";
+import { createCanvas, resize } from "../createCanvas";
 import { Time } from "../Time";
 
 export function drawBackground() {
@@ -25,6 +25,7 @@ export function drawBackground() {
         mountain.resize(width, height);
         stars.resize(width, height * 0.4);
     })
+    resize();
 
     const time = new Time();
     let delta = Math.random() * 10;
@@ -46,8 +47,16 @@ export function drawBackground() {
 
     const render = function () {
         requestAnimationFrame(render);
+        //linear-gradient(#08254d 30%, #00111e);
+        // context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+        let skyGradient = context.createLinearGradient(0, 0, 0, canvas.height);
+        // skyGradient.addColorStop(0, '#2a3e55'); 
+        // skyGradient.addColorStop(.7, '#8d4835'); 
+        skyGradient.addColorStop(0.3, '#08254d');
+        skyGradient.addColorStop(1, '#00111e');
+        context.fillStyle = skyGradient;
+        context.fillRect(0, 0, canvas.width, canvas.height);
 
-        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
         count++;
         count % 10 == 0 && stars.blink();
         moon.draw();
@@ -65,4 +74,6 @@ export function drawBackground() {
     };
 
     requestAnimationFrame(render);
+
+    return context;
 }

@@ -19,7 +19,6 @@ import { Howl } from "howler";
 
 import { drawBackground } from "@/utils/background/drawBackground";
 import { excuteFireworks } from "@/utils/firework/firework";
-import { resize } from "@/utils/createCanvas";
 
 import Executions from "./Executions";
 import Invitation from "./Invitation";
@@ -65,9 +64,7 @@ export default {
       return codeWithCursor;
     },
   },
-  watch:{
-
-  },
+  watch: {},
   methods: {
     scrollToBottom() {
       // 保持页面一直滚到最下面
@@ -146,15 +143,14 @@ export default {
       });
       playAudio(audioBuffer_bgm, true);
     });
-   eventBus.$on("music_status", (status) => {
-     playAudio(audioBuffer_bgm, status);      
+    eventBus.$on("music_status", (status) => {
+      playAudio(audioBuffer_bgm, status);
     });
     //绘制背景
-    drawBackground();
+    let context = drawBackground();
     //放烟花
-    excuteFireworks();
+    excuteFireworks(context);
 
-    resize();
     //开始打字
     this.progressivelyTyping();
   },

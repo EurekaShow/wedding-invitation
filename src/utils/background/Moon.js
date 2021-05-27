@@ -1,7 +1,7 @@
 export default class Moon {
     constructor(ctx, width, height) {
         this.ctx = ctx;
-        this.resize(width, height)
+        this.resize(width, height);
     }
 
     resize(width, height) {

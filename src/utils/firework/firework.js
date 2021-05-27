@@ -5,11 +5,21 @@ import { Vector2 } from "./Vector2";
 import { Time } from "../Time";
 import { createCanvas } from "../createCanvas";
 
-export function excuteFireworks() {
-    const dom = document.body;
-    let width = dom.offsetWidth;
-    let height = dom.offsetHeight;
-    const canvas = createCanvas(dom);
+export function excuteFireworks(backCtx) {
+    let canvas, width, height;
+    if (backCtx) {
+        let backCanvas = backCtx.canvas;
+        canvas = backCanvas.cloneNode();
+        width = backCanvas.clientWidth;
+        height = backCanvas.clientHeight;
+    }
+    else {
+        const dom = document.body;
+        width = dom.offsetWidth;
+        height = dom.offsetHeight;
+        canvas = createCanvas(dom);
+    }
+
     const context = canvas.getContext('2d');
 
     const time = new Time();
@@ -42,8 +52,15 @@ export function excuteFireworks() {
     };
 
     window.addEventListener("resize", function () {
-        width = canvas.clientWidth;
-        height = canvas.clientHeight;
+        if (backCtx) {  
+            width = backCtx.canvas.clientWidth;
+            height = backCtx.canvas.clientHeight;
+        }
+        else{
+            width = canvas.clientWidth;
+            height = canvas.clientHeight;
+        }
+
     })
 
     const render = function () {
@@ -58,6 +75,10 @@ export function excuteFireworks() {
             rocket.update(time);
             rocket.render(context);
         });
+
+        if (backCtx) {
+            backCtx.drawImage(canvas, 0, 0, context.canvas.width, context.canvas.height)
+        }
     };
 
     requestAnimationFrame(render);
