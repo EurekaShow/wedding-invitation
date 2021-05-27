@@ -103,7 +103,7 @@ export default {
             }
           }
           let randomNumber = Math.round(Math.random() * 6);
-          // 摸你打字的随机速度
+          // 模拟打字的随机速度
           if (randomNumber % 4 === 0) {
             start = timestamp;
             this.currentCode =

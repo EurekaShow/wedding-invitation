@@ -1,6 +1,7 @@
 import Moon from "./Moon";
 import Stars from "./Stars";
 import Meteor from "./Meteor";
+import Mountain from "./Mountain";
 import { createCanvas } from "../createCanvas";
 import { Time } from "../Time";
 
@@ -12,14 +13,16 @@ export function drawBackground() {
     const context = canvas.getContext('2d');
 
     let moon = new Moon(context, width, height),
+        mountain = new Mountain(context, width, height),
         stars = new Stars(context, width, height * 0.4, 30),
         meteors = [],
         count = 0;
 
-    window.addEventListener("resize", function () {       
+    window.addEventListener("resize", function () {
         width = canvas.clientWidth;
         height = canvas.clientHeight;
         moon.resize(width, height);
+        mountain.resize(width, height);
         stars.resize(width, height * 0.4);
     })
 
@@ -48,6 +51,7 @@ export function drawBackground() {
         count++;
         count % 10 == 0 && stars.blink();
         moon.draw();
+        mountain.draw();
         stars.draw();
         meteorGenerator();
         meteors.forEach((meteor, index, arr) => {
